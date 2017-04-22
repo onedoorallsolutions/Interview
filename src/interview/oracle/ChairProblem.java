@@ -72,22 +72,28 @@ public class ChairProblem {
 		while(true){
 			synchronized (chairMap) {
 				Random r = new Random();
-				int x = r.nextInt(1000);
-				if( x<100){
+				
+				while(checkFreeChair(chairMap) !=null){
 					chairMap.wait();
 				}
+				int Low = 1;
+				int High = 6;
+				int chairId = r.nextInt(High-Low) + Low;
 				
-				int chairId = r.nextInt(5);
-				if(chairId !=0){
-				chairMap.put("chair"+chairId, null);
+				
+				Student s = chairMap.put("chair"+chairId, null);
+				
+				System.out.println(s +" is leaving the chair -"+chairId);
 		
 				System.out.println("Map :"+chairMap);
 				chairMap.notify();
-				}
 			}
 			
 		}
 	}
+
+
+	
 
 
 	public void produceStudent() throws InterruptedException{
@@ -123,13 +129,13 @@ public class ChairProblem {
 				
 				synchronized (chairMap) {
 					
-					String chairId = checkFreeChair(chairMap);
-					while(chairId==null){
-						System.out.println("Waiting for Chair to be freed...");
+										
+					while(checkFreeChair(chairMap) == null){
+						System.out.println("Waiting for chair to be freed...");
 						chairMap.wait();
 					}
-					
-					System.out.println(chairId +" Is Freed..");
+					String chairId = checkFreeChair(chairMap);				
+					System.out.println(chairId +" is free..");
 					System.out.println("Assigning "+s1);
 					chairMap.put(chairId, s1);	
 				
