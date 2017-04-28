@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ReverseLinkedListInPair {
 
-	  private Node head;
+	private Node head;
 	public Node revesePair(Node head)
 	{
 		Node prev=null;
