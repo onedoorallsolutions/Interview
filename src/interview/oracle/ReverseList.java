@@ -30,7 +30,7 @@ public class ReverseList {
 		
 		head.next.next=head;
 		
-		head.next=reverseListInPairItr(remaining);
+		head.next=reverseListInPairRecur(remaining);
 		
 		return newHead;
 		
