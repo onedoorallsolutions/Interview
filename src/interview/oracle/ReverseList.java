@@ -15,13 +15,27 @@ public class ReverseList {
 		lst.add(10);
 		lst.add(11);
 		lst.add(12);
-		System.out.println("------Reverse in Group of 3-------");
+		System.out.println("------Reverse in Group of K-------");
 		System.out.println(lst);
 		lst.head = reverseListInGroupOfK(lst.head,3);
 		System.out.println(lst);
 		
+		System.out.println("------Pallindrome Check -------");
+		Node pallin=new Node(9,new Node(8,new Node(5,new Node(8,new Node(9,new Node(9,null))))));
+		System.out.println(new LinkedList(pallin) +" Is Pallindrome :"+isPallindrome(pallin));
+		
+		Node pallin2=new Node(9,new Node(8,new Node(5,new Node(5,new Node(8,new Node(9,null))))));
+		
+		System.out.println(new LinkedList(pallin2) +" Is Pallindrome :"+isPallindrome(pallin2));
+		
+		Node pallin3=new Node(5,new Node(8,new Node(5,new Node(8,new Node(5,null)))));
+		
+		System.out.println(new LinkedList(pallin3) +" Is Pallindrome :"+isPallindrome(pallin3));
+		
 		System.out.println("------Adding two List-------");
-		Node fistList = new Node(1,new Node(8,new Node(3,new Node(9,null))));
+		
+		Node fistList = new Node(9,new Node(8,new Node(5,new Node(8,new Node(9,null)))));
+		
 		System.out.println("First List : "+new LinkedList(fistList));
 		
 		Node secondList=new Node(9,new Node(8,new Node(7,null)));
@@ -29,6 +43,47 @@ public class ReverseList {
 		
 		System.out.println("Sum :"+new LinkedList(addLinkedList(fistList,secondList)));
 		
+	}
+	
+	
+	
+	private static boolean isPallindrome(Node head){
+		if(head==null || head.next==null){
+			return true;
+		}
+		
+		Node firstHalf=head;
+		
+
+		Node temp=null;
+		
+		Node slowPtr=head;
+		Node fastPtr=head;
+		
+		
+		while(fastPtr!=null && fastPtr.next!=null){
+			fastPtr=fastPtr.next.next;
+			slowPtr=slowPtr.next;
+		}
+		
+		if(fastPtr==null){
+			temp = slowPtr;
+		}else if(fastPtr.next==null){
+			temp = slowPtr.next;
+		}
+		
+		Node secondHalf= reverseListItr(temp);
+		
+		while(secondHalf !=null){
+			if(firstHalf.value !=secondHalf.value){
+				return false;
+			}
+			firstHalf=firstHalf.next;
+			secondHalf=secondHalf.next;
+		}
+			
+		
+		return true;
 	}
 	
 	
