@@ -2,6 +2,11 @@ package interview.oracle;
 
 public class LinkedList {
 	Node head =null;
+	LinkedList(){
+	}
+	LinkedList(Node head ){
+		this.head=head;
+	}
 	public boolean add(int value){
 		Node node = new Node(value);
 		Node curr = head;

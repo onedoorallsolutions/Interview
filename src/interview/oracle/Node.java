@@ -3,7 +3,7 @@ package interview.oracle;
 public class Node {
 
 	
-	private int value;
+	int value;
 	Node next;
 	
 	public Node(int value) {
