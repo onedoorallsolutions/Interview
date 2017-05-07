@@ -1,11 +1,11 @@
 package interview.oracle;
 import java.util.*;
 
-class TNode {
+/*class TNode {
 	int data;
 	TNode left;
 	TNode right; 
-}
+}*/
 public class TreeTopView {
 
 	public static void main(String[] args) {
