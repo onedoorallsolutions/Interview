@@ -43,9 +43,117 @@ public class ReverseList {
 		
 		System.out.println("Sum :"+new LinkedList(addLinkedList(fistList,secondList)));
 		
+		System.out.println("-----Merge two sorted Linked List--------");
+		
+		Node list1= new Node(10,new Node(12,new Node(25,new Node(37,null))));
+		System.out.println("List 1:"+new LinkedList(list1));
+		Node list2= new Node(5,new Node(11,new Node(13,null)));
+		System.out.println("List 1:"+new LinkedList(list2));
+		System.out.println("Merged List :"+new LinkedList(mergeLists(list1, list2)));
+		
+		
+		System.out.println("-----Merged Sort of Linked List--------");
+		
+		Node list= new Node(10,new Node(5,new Node(7,new Node(6,null))));
+		System.out.println("Before Merge :"+new LinkedList(list));
+		System.out.println("Sorted List:"+new LinkedList(mergeSort(list)));
+		
+		
+		Node l2= new Node(3,new Node(8,new Node(7,new Node(6,new Node(1,null)))));
+		System.out.println("Before Merge :"+new LinkedList(l2));
+		System.out.println("Sorted List:"+new LinkedList(mergeSort(l2)));
+		
+		
+		
 	}
 	
 	
+	private static Node mergeSort(Node head){
+		if(head==null || head.next==null){
+			return head;
+		}
+		
+		Node front=null;
+		Node back=null;
+		
+		Node slowPtr=head;
+		Node fastPtr=head;
+		Node prev=null;
+		while(fastPtr!=null && fastPtr.next!=null){
+			fastPtr=fastPtr.next.next;
+			prev=slowPtr;
+			slowPtr=slowPtr.next;
+		}
+		
+		if(fastPtr==null){
+			back=slowPtr;
+			prev.next=null;
+		}else{
+			back=slowPtr.next;
+			slowPtr.next=null;
+		}
+		
+		
+		front= head;
+		
+		
+		
+		Node p = mergeSort(front);
+		Node q = mergeSort(back);
+		
+		return mergeLists(p, q);
+		
+		
+	}
+	
+	
+	private static Node mergeLists(Node p,Node q){
+		if(p==null){
+			return q;
+		}
+		
+		if(q==null){
+			return p;	
+		}
+		Node mergedList=null;
+		Node mergedListHead=null;
+		
+		while(p!=null && q!=null){
+			
+			if(p.value <=q.value){
+				if(mergedList==null){
+					mergedList=new Node(p.value,null);
+					mergedListHead=mergedList;
+				}
+				else{
+					mergedList.next=new Node(p.value,null);
+					mergedList=mergedList.next;
+				}
+				p=p.next;
+			}
+			else{
+				if(mergedList==null){
+					mergedList=new Node(q.value,null);
+					mergedListHead=mergedList;
+				}
+				else{
+					mergedList.next=new Node(q.value,null);
+					mergedList=mergedList.next;
+				}
+				q=q.next;
+			}
+			
+		}
+		
+		if(p==null){
+			mergedList.next=q;
+		}
+		if(q==null){
+			mergedList.next=p;
+		}
+		
+		return mergedListHead;
+	}
 	
 	private static boolean isPallindrome(Node head){
 		if(head==null || head.next==null){
