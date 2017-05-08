@@ -14,7 +14,7 @@ public class ReverseList {
 		lst.add(9);
 		lst.add(10);
 		lst.add(11);
-		lst.add(12);
+		//lst.add(12);
 		System.out.println("------Reverse in Group of K-------");
 		System.out.println(lst);
 		lst.head = reverseListInGroupOfK(lst.head,3);
@@ -63,6 +63,18 @@ public class ReverseList {
 		System.out.println("Before Merge :"+new LinkedList(l2));
 		System.out.println("Sorted List:"+new LinkedList(mergeSort(l2)));
 		
+		System.out.println("-----Reverse Linked List in Pair --------");
+		Node head1=new Node(10,new Node(20,new Node(30,new Node(40,new Node(50,null)))));
+		System.out.println("List :"+new LinkedList(head1));
+		System.out.println(new LinkedList(reverseListInPairRecur(head1)));
+		
+		Node head3=new Node(10,new Node(20,new Node(30,new Node(40,new Node(50,null)))));
+		System.out.println(new LinkedList(reverseListInPairItr(head3)));
+		
+		System.out.println("-----Reverse Linked Recursive --------");
+		Node head2=new Node(10,new Node(20,new Node(30,new Node(40,new Node(50,null)))));
+		System.out.println("List :"+new LinkedList(head2));
+		System.out.println(new LinkedList(reverseListRecur(head2)));
 		
 		
 	}
@@ -279,10 +291,10 @@ public class ReverseList {
 	
 	
 	private static Node reverseListInGroupOfK(Node head,int k){
-		Node p= head;
-		int cnt =0;
 		
-		while(cnt !=k-1){
+		Node p = head;
+		int cnt=0;
+		while(cnt!=k-1){
 			if(p==null){
 				return head;
 			}
@@ -290,12 +302,13 @@ public class ReverseList {
 			cnt++;
 		}
 		
-		Node q = p;
-		Node newHead= p;
-		
+		Node newHead=p;
+		Node q=p;
 		while(true){
-			p = head;
+			
+			p=head;
 			Node temp = q.next;
+			
 			if(temp==null){
 				reverseListItr(p);
 				p.next=temp;
@@ -303,9 +316,8 @@ public class ReverseList {
 			}
 			
 			q.next=null;
+			head =temp;
 			q=temp;
-			head= temp;
-			
 			cnt=0;
 			while(cnt!=k-1){
 				if(temp.next==null){
@@ -313,67 +325,59 @@ public class ReverseList {
 					p.next=q;
 					return newHead;
 				}
+				
 				temp=temp.next;
 				cnt++;
+				
 			}
-			
 			reverseListItr(p);
 			p.next=temp;
 			q=temp;
+			
 		}
-		
 		
 	}
 
 	private static Node reverseListInPairRecur(Node head) {
-		
-		
 		if(head==null || head.next==null){
 			return head;
-			
 		}
-		
-		
 		Node remaining= head.next.next;
-		
-		Node newHead=head.next;
-		
+		Node newHead= head.next;
 		head.next.next=head;
-		
-		head.next=reverseListInPairRecur(remaining);
-		
+		head.next= reverseListInPairRecur(remaining);
 		return newHead;
-		
 	}
 	
-	
 	private static Node reverseListInPairItr(Node head) {
-		
-		if(head ==null || head.next==null){
+		if(head==null | head.next==null){
 			return head;
 		}
-		
 		Node p=head;
-		Node newHead=p.next;
+		Node newHead= p.next;
 		
 		while(true){
 			Node q=p.next;
-			Node temp=q.next;
+			Node temp= q.next;
 			q.next=p;
 			if(temp==null || temp.next==null){
 				p.next=temp;
 				return newHead;
 			}
-			
 			p.next=temp.next;
 			p=temp;
 		}
 		
+		
+		
 	}
 	
 	private static Node reverseListItr(Node head){
+		if(head==null || head.next==null){
+			return head;
+		}
 		Node curr=head;
-		Node prev=null;
+		Node prev =null;
 		while(curr!=null){
 			Node next = curr.next;
 			curr.next=prev;
@@ -389,11 +393,11 @@ public class ReverseList {
 			return head;
 		}
 		
-		Node next=reverseListRecur(head.next);
-		
+		Node next = reverseListRecur(head.next);
 		head.next.next=head;
 		head.next=null;
 		return next;
+		
 	}
 	
 	
