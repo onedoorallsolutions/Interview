@@ -3,7 +3,7 @@ package interview.oracle;
 public class Node {
 
 	
-	private int value;
+	int value;
 	Node next;
 	
 	public Node(int value) {
@@ -28,5 +28,11 @@ public class Node {
 	public void setNext(Node next) {
 		this.next = next;
 	}
+	@Override
+	public String toString() {
+		return value + "," + next;
+	}
+	
+	
 		
 }
